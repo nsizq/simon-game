@@ -6,7 +6,7 @@ var userClickedPattern = [];
 var started = false;
 var level = 0;
 
-$(document).on("touchstart", function () {
+$(document).on("click touchstart", function () {
   if (!started) {
     $("#level-title").text("Level " + level);
     nextSequence();
@@ -14,7 +14,7 @@ $(document).on("touchstart", function () {
   }
 });
 
-$(".btn").on("touchstart", function () {
+$(".btn").on("click touchstart", function () {
   var userChosenColour = $(this).attr("id");
   userClickedPattern.push(userChosenColour);
 
@@ -35,7 +35,7 @@ function checkAnswer(currentLevel) {
     playSound("wrong");
     $("body").addClass("game-over");
     $("#level-title").text(
-      "Game Over at level " + level + ", Touch Anywhere to Restart"
+      "Game Over at level " + level + ", Tap Anywhere to Restart"
     );
 
     setTimeout(function () {
@@ -71,4 +71,10 @@ function animatePress(currentColor) {
 function playSound(name) {
   var audio = new Audio("sounds/" + name + ".mp3");
   audio.play();
+}
+
+function startOver() {
+  level = 0;
+  gamePattern = [];
+  started = false;
 }
