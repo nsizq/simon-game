@@ -1,29 +1,24 @@
 var buttonColours = ["red", "blue", "green", "yellow"];
-
 var gamePattern = [];
 var userClickedPattern = [];
-
 var started = false;
 var level = 0;
 
 $(document).on("click touchstart keypress", function (event) {
   // Check if the event is a click, touchstart, or keypress
-  if (event.type === "click" || event.type === "touchstart" || event.type === "keypress") {
-    if (!started) {
-      $("#level-title").text("Level " + level);
-      nextSequence();
-      started = true;
-    }
+  if (!started) {
+    $("#level-title").text("Level " + level);
+    nextSequence();
+    started = true;
   }
 });
 
-$(".btn").on("click touchstart", function () {
+$(".btn").on("click touchstart", function (event) {
+  event.preventDefault(); // Prevent default action on touchstart
   var userChosenColour = $(this).attr("id");
   userClickedPattern.push(userChosenColour);
-
   playSound(userChosenColour);
   animatePress(userChosenColour);
-
   checkAnswer(userClickedPattern.length - 1);
 });
 
@@ -38,11 +33,9 @@ function checkAnswer(currentLevel) {
     playSound("wrong");
     $("body").addClass("game-over");
     $("#level-title").text("Game Over at level " + level + ", Press Any Key to Restart");
-
     setTimeout(function () {
       $("body").removeClass("game-over");
     }, 200);
-
     startOver();
   }
 }
