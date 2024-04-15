@@ -6,11 +6,14 @@ var userClickedPattern = [];
 var started = false;
 var level = 0;
 
-$(document).on("click touchstart", function () {
-  if (!started) {
-    $("#level-title").text("Level " + level);
-    nextSequence();
-    started = true;
+$(document).on("click touchstart keypress", function (event) {
+  // Check if the event is a click, touchstart, or keypress
+  if (event.type === "click" || event.type === "touchstart" || event.type === "keypress") {
+    if (!started) {
+      $("#level-title").text("Level " + level);
+      nextSequence();
+      started = true;
+    }
   }
 });
 
@@ -67,7 +70,7 @@ function animatePress(currentColor) {
 }
 
 function playSound(name) {
-  var audio = new Audio("sounds/" + name + ".mp3");
+  var audio = new Audio(name + ".mp3");
   audio.play();
 }
 
