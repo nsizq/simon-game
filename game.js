@@ -5,7 +5,6 @@ var started = false;
 var level = 0;
 
 $(document).on("click touchstart keypress", function (event) {
-  // Check if the event is a click, touchstart, or keypress
   if (!started) {
     $("#level-title").text("Level " + level);
     nextSequence();
@@ -32,11 +31,11 @@ function checkAnswer(currentLevel) {
   } else {
     playSound("wrong");
     $("body").addClass("game-over");
-    $("#level-title").text("Game Over at level " + level + ", Press Any Key to Restart");
-    setTimeout(function () {
+    $("#level-title").text("Game Over at level " + level + ", Tap Anywhere to Restart");
+    $(document).one("click touchstart", function () {
       $("body").removeClass("game-over");
-    }, 200);
-    startOver();
+      startOver();
+    });
   }
 }
 
@@ -52,7 +51,6 @@ function nextSequence() {
     .fadeIn(100)
     .fadeOut(100)
     .fadeIn(100);
-  playSound(randomChosenColour);
 }
 
 function animatePress(currentColor) {
@@ -63,8 +61,10 @@ function animatePress(currentColor) {
 }
 
 function playSound(name) {
-  var audio = new Audio(name + ".mp3");
-  audio.play();
+  if (name) { // Play sound only if name is defined
+    var audio = new Audio(name + ".mp3");
+    audio.play();
+  }
 }
 
 function startOver() {
