@@ -32,8 +32,8 @@ function checkAnswer(currentLevel) {
     playSound("wrong");
     $("body").addClass("game-over");
     $("#level-title").text("Game Over at level " + level + ", Tap Anywhere to Restart");
+    $("body").removeClass("game-over");
     $(document).on("click touchstart keypress", function (event) {
-      $("body").removeClass("game-over");
       if (!started) {
       $("#level-title").text("Level " + level);
       nextSequence();
