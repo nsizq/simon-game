@@ -32,14 +32,9 @@ function checkAnswer(currentLevel) {
     playSound("wrong");
     $("body").addClass("game-over");
     $("#level-title").text("Game Over at level " + level + ", Tap Anywhere to Restart");
-    $(document).on("click touchstart keypress", function (event) {
+    $(document).one("click touchstart", function () {
       $("body").removeClass("game-over");
       startOver();
-      if (!started) {
-      $("#level-title").text("Level " + level);
-      nextSequence();
-      started = true;
-      }
     });
   }
 }
@@ -75,6 +70,5 @@ function playSound(name) {
 function startOver() {
   level = 0;
   gamePattern = [];
-  userClickedPattern = [];
   started = false;
 }
